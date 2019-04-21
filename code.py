@@ -12,7 +12,7 @@ except ImportError:
 DATA_SOURCE = secrets['nightscout_url']
 BG_VALUE = [0, 'sgv']
 BG_DIRECTION = [0, 'direction']
-DATA_AGE = [0, 'date']
+DATA_AGE = [0, 'date'] # This is in GMT time
 
 # Alert Colors
 RED = 0xFF0000;     # CRIT HIGH, CRIT LOW
@@ -33,15 +33,15 @@ def stale_data(timestamp):
     # This is in minutes
     stale_time = 6
 
-    stale = False
-
     # Get the current timestamp in GMT
     epoch_time = time.time()
     print("Epoch GMT time:", epoch_time)
 
     current_time_str = str(timestamp)
 
-    current_time_str = current_time_str[:-3] # nightscout sends a higher percision then is necessary and does not use dot notation
+    # nightscout sends a higher percision then is necessary and does not use dot notation
+    # so we need to cut the last three 0's off the end
+    current_time_str = current_time_str[:-3] 
     current_time_int = int(current_time_str)
 
     # The number of minutes ago that the data was last checked
@@ -49,13 +49,13 @@ def stale_data(timestamp):
     print("Data age: ", last_check)
 
     if last_check > stale_time:
-        stale = True
+        return True
     else:
-        stale = False
+        return False
     
-    return stale
-
 def get_bg_color(val, timestamp):
+    # If the data is stale then we don't want to rely on it as an alert mech but we do need
+    # to know about it.
     if stale_data(timestamp):
         return PURPLE
     else:    
@@ -91,29 +91,37 @@ def text_transform_direction(val):
 
 # the current working directory (where this file is)
 cwd = ("/"+__file__).rsplit('/', 1)[0]
+
+# set the font
+display_font = cwd+"/fonts/Arial-Bold-24-Complete.bdf"
+
+# create the display
 pyportal = PyPortal(url=DATA_SOURCE,
-                    caption_text=secrets['human'],
+                    caption_text=secrets['human'], # Name of the person being monitored
                     caption_position=(100, 80), # This is going to be subjective to the length of the name
-                    caption_font=cwd+"/fonts/Arial-Bold-24-Complete.bdf",
+                    caption_font=display_font,
                     caption_color=0x000000,
                     json_path=(BG_VALUE, BG_DIRECTION, DATA_AGE),
                     status_neopixel=board.NEOPIXEL,
                     default_bg=0xFFFFFF,
-                    text_font=cwd+"/fonts/Arial-Bold-24-Complete.bdf",
-                    text_position=((90, 120),  # VALUE location
-                                   (140, 160)), # DIRECTION location
-                    text_color=(0x000000,  # sugar text color
-                                0x000000), # direction text color
-                    text_wrap=(35, # characters to wrap for sugar
+                    text_font=display_font,
+                    text_position=((90, 120),   # BG location
+                                   (140, 160)), # Direction location
+                    text_color=(0x000000,  # BG text color
+                                0x000000), # Direction text color
+                    text_wrap=(35, # characters to wrap for BG
                                0), # no wrap for direction
-                    text_maxlen=(180, 30), # max text size for sugar & direction
-                    text_transform=(text_transform_bg,text_transform_direction),
+                    text_maxlen=(180, 30), # max text size for BG & direction
+                    text_transform=(text_transform_bg,text_transform_direction), # pre-processing of the text to ensure proper format
                    )
 
-# speed up projects with lots of text by preloading the font!
+# Preload the font for performance
 pyportal.preload_font(b'mg/dl012345789');
 pyportal.preload_font((0x2191, 0x2192, 0x2193))
 
+#
+# main loop
+#
 while True:
     try:
         value = pyportal.fetch()
@@ -126,3 +134,8 @@ while True:
         print("Some error occured, retrying! -", e)
     time.sleep(180)
 
+# Notes
+#
+# Button to silence an alert
+# Big speaker
+# better arrows

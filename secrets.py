@@ -9,6 +9,7 @@ secrets = {
     'timezone' : "Africa/Abidjan",  # http://worldtimeapi.org/timezones
     'aio_username' : 'XXX', # free, needed for the timestamp https://io.adafruit.com/
     'aio_key' : 'XXX', # free, needed for the timestamp https://io.adafruit.com/
-    'nightscout_url' : 'XXX', # full nightscout url where the data can be found
+    'nightscout_url' : 'XXX', # full nightscout url where the data is collected
     'human' : 'XXX', # The person being monitored
+    'lifx_token' : 'XXX', # api token https://cloud.lifx.com/settings
     }
