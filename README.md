@@ -1,6 +1,6 @@
 # T1D Monitoring with a Pyportal
 
-![License](https://img.shields.io/github/license/mattyjones/pyportal_monitoring.svg)![Date](https://img.shields.io/github/release-date/mattyjones/pyportal_monitoring.svg)![Releases](https://img.shields.io/github/downloads/mattyjones/pyportal_monitoring/0.1/total.svg)
+![License](https://img.shields.io/github/license/mattyjones/pyportal_monitoring.svg)![Date](https://img.shields.io/github/release-date/mattyjones/pyportal_monitoring.svg)![Releases](https://img.shields.io/github/downloads/mattyjones/pyportal_monitoring/0.0.1/total.svg)
 
 ![Twitter](https://img.shields.io/twitter/follow/caffeinatedeng.svg?style=social)
 
