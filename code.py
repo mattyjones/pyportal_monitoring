@@ -30,7 +30,7 @@ WARN_LOW = 80
 def stale_data(timestamp):
 
     # stale results is the age at which results are no longer considered valid.
-    # This is in minutes
+    # This is in minutessd
     stale_time = 6
 
     stale = False
@@ -92,6 +92,7 @@ def text_transform_direction(val):
 # the current working directory (where this file is)
 cwd = ("/"+__file__).rsplit('/', 1)[0]
 pyportal = PyPortal(url=DATA_SOURCE,
+                    headers={'api-secret': secrets['api_key']},
                     caption_text=secrets['human'],
                     caption_position=(100, 80), # This is going to be subjective to the length of the name
                     caption_font=cwd+"/fonts/Arial-Bold-24-Complete.bdf",
