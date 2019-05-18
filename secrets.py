@@ -4,8 +4,8 @@
 # keep it a secret.
 
 secrets = {
-    'ssid' : '',             # Keep the two '' quotes around the name
-    'password' : '',         # Keep the two '' quotes around password
+    'ssid' : '',             # Wifi SSID you are connecting to
+    'password' : '',         # Wifi password, you do have one right?
     'api_key': '', # This needs to be a sha1 hash of the api secret
     'timezone' : "Africa/Abidjan",  # http://worldtimeapi.org/timezones
     'aio_username' : '', # free, needed for the timestamp https://io.adafruit.com/
