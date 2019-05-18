@@ -47,16 +47,3 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 [1]: https://www.adafruit.com/product/4116
 [2]: https://github.com/nightscout/cgm-remote-monitor
 [3]: https://learn.adafruit.com/adafruit-pyportal/install-circuitpython
-
-
-
-
-
-
-
-
-## Nightscout Auth
-
-http://www.nightscout.info/wiki/welcome/website-features/0-9-features/authentication-roles
-https://github.com/nightscout/cgm-remote-monitor/wiki/API-v1.0.0-beta-Security
-http://www.sha1-online.com/
